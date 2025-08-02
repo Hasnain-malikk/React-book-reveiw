@@ -1,5 +1,6 @@
 import React from 'react'
 import BookReview from './components/BookReview'
+import Chatbot from './components/Chatbot'
 
 const books = [
 	{
@@ -146,6 +147,7 @@ const App = () => {
 			{books.map((book, idx) => (
 				<BookReview key={idx} {...book} />
 			))}
+			<Chatbot />
 		</div>
 	)
 }
