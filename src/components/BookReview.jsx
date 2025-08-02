@@ -1,14 +1,27 @@
 import React from 'react';
 
-const BookReview = () => {
+const BookReview = ({
+  title,
+  author,
+  series,
+  cover,
+  startDate,
+  finishDate,
+  format,
+  genre,
+  quotes = [],
+  favouriteCharacter,
+  leastFavouriteCharacter,
+  overallRating = 4,
+}) => {
   return (
     <main className="bg-stone-100 min-h-screen p-4 flex items-center justify-center font-[Inter]">
       <div className="w-full max-w-7xl mx-auto bg-white rounded-3xl shadow-2xl p-6 md:p-10 lg:p-12 border border-gray-200">
         {/* Header Section */}
         <header className="mb-8 md:mb-12">
           <h1 className="text-sm font-semibold uppercase text-gray-500 tracking-widest">Book Review</h1>
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mt-2">All Systems Red</h2>
-          <p className="text-base md:text-lg text-gray-500 mt-1">Martha Wells · The Murderbot Diaries #1</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mt-2">{title}</h2>
+          <p className="text-base md:text-lg text-gray-500 mt-1">{author} · {series}</p>
         </header>
 
         {/* Search Bar */}
@@ -75,7 +88,7 @@ const BookReview = () => {
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className={`h-6 w-6 ${i < 4 ? 'text-yellow-400' : 'text-gray-300'} fill-current`}
+                    className={`h-6 w-6 ${i < overallRating ? 'text-yellow-400' : 'text-gray-300'} fill-current`}
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.62L12 2L9.19 8.62L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
@@ -104,8 +117,8 @@ const BookReview = () => {
           <div className="md:col-span-1 flex flex-col space-y-6">
             <div className="rounded-xl shadow-xl overflow-hidden self-center w-2/3 md:w-full">
               <img
-                src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631585309i/32758901.jpg"
-                alt="Book cover for All Systems Red"
+                src={cover}
+                alt={`Book cover for ${title}`}
                 className="w-full h-auto object-cover"
               />
             </div>
@@ -113,21 +126,21 @@ const BookReview = () => {
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="font-medium text-gray-700">Start date</span>
-                <span className="text-gray-500">5 Feb 2023</span>
+                <span className="text-gray-500">{startDate}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="font-medium text-gray-700">Finish date</span>
-                <span className="text-gray-500">7 Feb 2023</span>
+                <span className="text-gray-500">{finishDate}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="font-medium text-gray-700">Format</span>
-                <span className="text-gray-500">Hardcover</span>
+                <span className="text-gray-500">{format}</span>
               </div>
             </div>
 
             <div>
               <h3 className="font-medium text-lg text-gray-700">Genre</h3>
-              <p className="text-sm text-gray-500 mt-1">Science Fiction, Novella, Adult, Space, Robots</p>
+              <p className="text-sm text-gray-500 mt-1">{genre}</p>
             </div>
           </div>
         </div>
@@ -138,27 +151,20 @@ const BookReview = () => {
             <div>
               <h3 className="font-medium text-lg text-gray-700 mb-2">Quotes to remember</h3>
               <blockquote className="text-gray-600 italic leading-relaxed space-y-4">
-                <p className="relative pl-6">
-                  <span className="absolute left-0 top-0 text-3xl text-gray-300 font-serif leading-none">“</span>
-                  As a heartless killing machine, I was a terrible failure.
-                </p>
-                <p className="relative pl-6">
-                  <span className="absolute left-0 top-0 text-3xl text-gray-300 font-serif leading-none">“</span>
-                  I hate having emotions about reality; I'd much rather have them about Sanctuary Moon.
-                </p>
+                {quotes.map((q, idx) => (
+                  <p key={idx} className="relative pl-6">
+                    <span className="absolute left-0 top-0 text-3xl text-gray-300 font-serif leading-none">“</span>
+                    {q}
+                  </p>
+                ))}
               </blockquote>
             </div>
-          </div>
-
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <h3 className="font-medium text-lg text-gray-700 mb-2">Most surprising moment</h3>
-            <p className="text-gray-600">...</p>
           </div>
 
           <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 flex items-center justify-between">
             <div>
               <h3 className="font-medium text-lg text-gray-700">Favourite character</h3>
-              <p className="text-gray-600">Murderbot</p>
+              <p className="text-gray-600">{favouriteCharacter}</p>
             </div>
             <span className="text-2xl">❤️</span>
           </div>
@@ -166,14 +172,9 @@ const BookReview = () => {
           <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 flex items-center justify-between">
             <div>
               <h3 className="font-medium text-lg text-gray-700">Least favourite character</h3>
-              <p className="text-gray-600">...</p>
+              <p className="text-gray-600">{leastFavouriteCharacter}</p>
             </div>
             <span className="text-2xl">😡</span>
-          </div>
-
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 lg:col-span-2">
-            <h3 className="font-medium text-lg text-gray-700 mb-2">The ending</h3>
-            <p className="text-gray-600">Liked it? Why? Why not? How should it have ended?</p>
           </div>
         </div>
       </div>
