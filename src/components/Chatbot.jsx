@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const App = () => {
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold p-4">My Bookstore</h1>
+      {/* <h1 className="text-3xl font-bold p-4">My Bookstore</h1> */}
       {/* Other components and content for your bookstore */}
       <Chatbot />
     </div>
